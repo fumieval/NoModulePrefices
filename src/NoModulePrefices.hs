@@ -8,7 +8,7 @@ import Data.List (foldl')
 import ErrUtils (mkPlainErrMsg, warningMsg)
 import GhcPlugins hiding ((<>), getHscEnv)
 import GHC.Hs (hsmodImports, ImportDecl(..))
-import System.Directory (getXdgDirectory, doesFileExist, XdgDirectory(..))
+import System.Directory (getXdgDirectory, doesFileExist, XdgDirectory(..), createDirectoryIfMissing)
 import System.FilePath ((</>))
 import qualified Crypto.Hash as Crypto
 import qualified Data.ByteString as B
@@ -73,7 +73,10 @@ fetchMapping urlHash = do
     else do
       req <- HC.parseUrlThrow url
       resp <- HCS.getGlobalManager >>= HC.httpLbs req
-      pure $ BL.toStrict $ HC.responseBody resp
+      let body = BL.toStrict $ HC.responseBody resp
+      createDirectoryIfMissing True dir
+      B.writeFile path body
+      pure body
   let actualHash = show $ Crypto.hashWith Crypto.SHA256 content
   dynFlags <- getDynFlags
   when (expectedHash /= actualHash) $ throwOneError
