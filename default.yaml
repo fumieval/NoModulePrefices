@@ -1,0 +1,54 @@
+Aeson:
+  default: Data.Aeson
+Yaml:
+  default: Data.Yaml
+HTTP:
+  default: Network.HTTP
+Text:
+  default: Data.Text
+ByteString:
+  default: Data.ByteString
+Hashable:
+  default: Data.Hashable
+Functor:
+  default: Data.Functor
+IO:
+  default: System.IO
+Function:
+  default: Data.Function
+Monad:
+  default: Control.Monad
+Applicative:
+  default: Control.Applicative
+Exception:
+  default: Control.Exception
+Concurrent:
+  default: Control.Concurrent
+Category:
+  default: Control.Category
+Arrow:
+  default: Control.Arrow
+Lens:
+  default: Control.Lens
+Map:
+  default: Data.Map
+HashMap:
+  default: Data.HashMap
+Set:
+  default: Data.Set
+IntSet:
+  default: Data.IntSet
+IntMap:
+  default: Data.IntMap
+Random:
+  default: System.Random
+FilePath:
+  default: System.FilePath
+Directory:
+  default: System.Directory
+Vector:
+  default: Data.Vector
+Array:
+  default: Data.Array
+Semigroup:
+  default: Data.Semigroup
