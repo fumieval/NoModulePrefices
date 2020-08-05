@@ -6,7 +6,7 @@ This package provides a GHC plugin which transforms module names so that you don
 To enable the plugin, pass the following flags to GHC:
 
 ```
--fplugin=NoModulePrefices -fplugin-opt=NoModulePrefices:https://github.com/fumieval/NoModulePrefices/blob/c07381d49c1c8d617850c5ef0352ea5bcb9a8422/default.yaml@c8982f3bc53c6a4b5bc76d81f151a8379135de657e43c3c04d191eacdcc83dca
+-fplugin=NoModulePrefices -fplugin-opt=NoModulePrefices:https://raw.githubusercontent.com/fumieval/NoModulePrefices/c07381d49c1c8d617850c5ef0352ea5bcb9a8422/default.yaml@c8982f3bc53c6a4b5bc76d81f151a8379135de657e43c3c04d191eacdcc83dca
 ```
 
 The mapping from short names to canonical names can be configured via a YAML document. The plugin fetches a YAML document via HTTP, validates its SHA256 and store it to the XDG cache directory.
