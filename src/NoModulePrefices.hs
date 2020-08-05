@@ -74,13 +74,14 @@ fetchMapping urlHash = do
       req <- HC.parseUrlThrow url
       resp <- HCS.getGlobalManager >>= HC.httpLbs req
       let body = BL.toStrict $ HC.responseBody resp
-      createDirectoryIfMissing True dir
-      B.writeFile path body
       pure body
   let actualHash = show $ Crypto.hashWith Crypto.SHA256 content
   dynFlags <- getDynFlags
-  when (expectedHash /= actualHash) $ throwOneError
-    $ mkPlainErrMsg dynFlags noSrcSpan
-    $ text actualHash <+> "doesn't match" <+> text urlHash
-
-  liftIO $ Yaml.decodeThrow content
+  if expectedHash == actualHash
+    then liftIO $ do
+      createDirectoryIfMissing True dir
+      B.writeFile path content
+      liftIO $ Yaml.decodeThrow content
+    else throwOneError
+           $ mkPlainErrMsg dynFlags noSrcSpan
+           $ text actualHash <+> "doesn't match" <+> text expectedHash
